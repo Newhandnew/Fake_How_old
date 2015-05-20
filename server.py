@@ -6,7 +6,8 @@
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
 
 import cgi
-import facedetect
+import os
+#import facedetect
 
 class StoreHandler(BaseHTTPRequestHandler):
     def do_POST(self):
@@ -29,9 +30,9 @@ class StoreHandler(BaseHTTPRequestHandler):
             data = form['file'].file.read()
             open("test.jpg", "wb").write(data)
             #call facedetect
-            facedetect.facedetect()
+            #facedetect.facedetect()
             #show result
-            img = open("result.png", "rb")
+            img = open("test.jpg", "rb")
             self.imgrespond(img.read())
             img.close()
             
@@ -62,5 +63,6 @@ class StoreHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(response)  
 
-server = HTTPServer(('', 8080), StoreHandler)
+port = int(os.environ.get("PORT", 5000))
+server = HTTPServer(('', port), StoreHandler)
 server.serve_forever()
