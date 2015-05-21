@@ -64,5 +64,5 @@ class StoreHandler(BaseHTTPRequestHandler):
         self.wfile.write(response)  
 
 port = int(os.environ.get("PORT", 5000))
-server = HTTPServer(('', port), StoreHandler)
+server = HTTPServer(('0.0.0.0', port), StoreHandler)
 server.serve_forever()
